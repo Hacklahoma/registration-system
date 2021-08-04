@@ -1,3 +1,5 @@
+@import "./constants";
+
 // Small Login Text Boxes
 .sm.textbox {
   margin-bottom: 10px;
@@ -11,7 +13,7 @@
 }
 
 .form-control::-webkit-input-placeholder {
-  color: #9ab7e2;
+  color: $light-blue;
   font-size: 1.2rem;
   font-weight: bolder;
 }
@@ -19,24 +21,21 @@
 //Button
 button {
   transition: all 0.5s;
-}
-
-button {
   cursor: pointer;
   display: inline-block;
   position: relative;
   transition: 0.5s;
-}
 
-button:after {
-  content: "»";
-  position: absolute;
-  opacity: 0;
-  right: -20px;
-  transition: 0.5s;
-}
+  &:after {
+    content: "»";
+    position: absolute;
+    opacity: 0;
+    right: -20px;
+    transition: 0.5s;
 
-button:hover:after {
-  opacity: 1;
-  right: 10px;
+    &:hover {
+      opacity: 1;
+      right: 10px;
+    }
+  }
 }

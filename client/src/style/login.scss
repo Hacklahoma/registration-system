@@ -1,3 +1,5 @@
+@import "./constants";
+
 @import "../../node_modules/bootstrap/scss/functions";
 @import "../../node_modules/bootstrap/scss/variables";
 
@@ -15,12 +17,9 @@ $bg-img: url("../Assets/login-background.png");
   align-items: center;
 }
 
-.center {
-}
-
 .hacklahoma {
   font-family: bebas-neue;
-  color: #ffffff;
+  color: $white;
   font-weight: bolder;
   font-size: 4rem;
   text-align: center;
@@ -30,14 +29,14 @@ $bg-img: url("../Assets/login-background.png");
 .login-card {
   width: 450px;
   border-radius: 25px;
-  background-color: #9ab7e2;
+  background-color: $light-blue;
   margin: 0 auto;
 }
 
 .page-title {
   font-weight: bold;
   font-size: 200%;
-  color: #ffffff;
+  color: $blue;
   margin: 0 0 5px 0;
 }
 
@@ -62,19 +61,19 @@ $bg-img: url("../Assets/login-background.png");
 
 .logo-text {
   width: 70%;
-  color: #ffffff;
+  color: $shite;
   font-size: 140%;
   font-weight: bolder;
 }
 
 .btn {
-  background-color: #4e82cc;
+  background-color: $dark-blue;
   font-weight: bolder;
-  color: white;
+  color: $white;
   width: 100%;
   align-self: center;
   &:hover {
-    color: white;
+    color: $white;
   }
 }
 
@@ -84,7 +83,7 @@ $bg-img: url("../Assets/login-background.png");
   align-self: center;
 
   &:hover {
-    color: white;
+    color: $white;
   }
 }
 

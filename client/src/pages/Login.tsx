@@ -1,7 +1,6 @@
 import React from "react";
 import MediaQuery from "react-responsive";
 
-import cloud from "../assets/cloud.svg";
 import trail from "../assets/paper-airplane.png";
 import microsoft from "../assets/microsoft-logo.svg";
 import google from "../assets/google-logo.svg";
@@ -9,6 +8,7 @@ import google from "../assets/google-logo.svg";
 import "../styling/login.scss";
 import "../styling/images.scss";
 
+import Clouds from "../components/clouds";
 import Textbox from "../components/textbox";
 
 const Login: React.FC = () => {
@@ -29,24 +29,7 @@ const Login: React.FC = () => {
             alt="plane"
           />
         </MediaQuery>
-        <img
-          src={cloud}
-          className="cloud"
-          style={{ bottom: "25vh", left: "10vw" }}
-          alt="cloud"
-        />
-        <img
-          src={cloud}
-          className="cloud"
-          style={{ top: "5vh", right: "20vw" }}
-          alt="cloud"
-        />
-        <img
-          src={cloud}
-          className="cloud"
-          style={{ bottom: "8vh", left: "20vw" }}
-          alt="cloud"
-        />
+        <Clouds />
 
         <h1 className="hacklahoma">Hacklahoma</h1>
         <div className="card login-card">

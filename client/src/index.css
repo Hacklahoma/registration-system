@@ -4,9 +4,34 @@
   font-weight: 900;
 }
 
+/* Calibri  */
 @font-face {
-  font-family: "calibri";
-  src: url(./fonts/calibri/calibri-regular.ttf);
+  font-family: "calibri-bold-italic";
+  src: url(./fonts/calibri/calibri-bold-italic.ttf);
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "calibri-bold";
+  src: url(./fonts/calibri/calibri-bold.ttf);
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "calibri-italic";
+  src: url(./fonts/calibri/calibri-italic.ttf);
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "calibri-light-italic";
+  src: url(./fonts/calibri/calibri-light-italic.ttf);
+  font-weight: 900;
+}
+
+@font-face {
+  font-family: "calibri-light";
+  src: url(./fonts/calibri/calibri-light.ttf);
   font-weight: 900;
 }
 
