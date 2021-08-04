@@ -1,0 +1,97 @@
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$phone: 640px;
+$tablet: 768px;
+$desktop: 1024px;
+
+$btn-link-hover-color: pink;
+$bg-img: url("../Assets/login-background.png");
+
+.register-page {
+  background-size: 100vw 100vh;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+}
+
+.center {
+}
+
+.hacklahoma {
+  font-family: bebas-neue;
+  color: #ffffff;
+  font-weight: bolder;
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 0;
+}
+
+.login-card {
+  width: 450px;
+  border-radius: 25px;
+  background-color: #9ab7e2;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-weight: bold;
+  font-size: 200%;
+  color: #ffffff;
+  margin: 0 0 5px 0;
+}
+
+.logo {
+  width: 70px;
+}
+
+.flex {
+  display: flex;
+  width: inherit;
+
+  &.row {
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  &.col {
+    flex-direction: column;
+  }
+}
+
+.logo-text {
+  width: 70%;
+  color: #ffffff;
+  font-size: 140%;
+  font-weight: bolder;
+}
+
+.btn {
+  background-color: #4e82cc;
+  font-weight: bolder;
+  color: white;
+  width: 100%;
+  align-self: center;
+  &:hover {
+    color: white;
+  }
+}
+
+.new-user {
+  text-decoration: none;
+  font-weight: bolder;
+  align-self: center;
+
+  &:hover {
+    color: white;
+  }
+}
+
+// Media Queries
+@media (max-width: 480px) {
+  .login-card {
+    // width: 350px;
+    width: calc(100vw - 24px);
+  }
+}
