@@ -15,7 +15,7 @@ const Signup: React.FC = () => {
   return (
     <div className="register-page d-flex align-items-center justify-content-center">
       <div className="center">
-        <MediaQuery minWidth={1024}>
+        <MediaQuery minWidth={480}>
           <img
             src={trail}
             className="trail"
