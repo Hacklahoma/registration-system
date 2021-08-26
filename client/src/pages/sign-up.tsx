@@ -3,7 +3,6 @@ import MediaQuery from "react-responsive";
 
 import trail from "../assets/paper-airplane.png";
 
-
 import "../style/sign-up.scss";
 import "../style/images.scss";
 
@@ -11,7 +10,6 @@ import Clouds from "../components/clouds";
 import Textbox from "../components/textbox";
 
 const Signup: React.FC = () => {
-
   return (
     <div className="register-page d-flex align-items-center justify-content-center">
       <div className="center">
@@ -41,14 +39,14 @@ const Signup: React.FC = () => {
               <Textbox title="Password" />
               <Textbox title="Confirm Password" />
             </div>
-            <h5 className="password-info">*Password must contain atleast 6 characters and a special character</h5>
-            
+            <h5 className="password-info">
+              *Password must contain atleast 6 characters and a special
+              character
+            </h5>
 
-           
             <button className="btn" type="button">
-                Enter
+              Enter
             </button>
-              
           </div>
         </div>
       </div>
