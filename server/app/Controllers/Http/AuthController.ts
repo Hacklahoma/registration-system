@@ -10,7 +10,7 @@ export default class AuthController {
    * @name login
    * @description Logs a user in
    * @type POST
-   * @route /endpoints/users/login/
+   * @route /api/auth/login/
    *
    * @param email
    * @param password
@@ -29,9 +29,9 @@ export default class AuthController {
     }
 
     // Check to see if the User has been activated yet
-    /*if(user.status === 'Unactivated') {
+    if(user.status === 'Unactivated') {
       return response.badRequest({ error: 'User has not been confirmed yet.' });
-    }*/
+    }
 
     user.lastLogin = DateTime.local();
     await user.save();
@@ -50,7 +50,7 @@ export default class AuthController {
    * @name logout
    * @description logs the user out and revokes the token associated with the user
    * @type POST
-   * @route /endpoints/users/logout/
+   * @route /api/auth/logout/
    *
    * @returns status of the revoked token
    */
@@ -61,18 +61,18 @@ export default class AuthController {
     }
     await auth.use('api').revoke();
 
-    return { revoked: true };
+    return { logout: true };
   }
 
   /**
    * @name signUp
    * @description Creates a user from within the website
    * @type POST
-   * @route /endpoints/users/createUser/
+   * @route /api/auth/createUser/
    *
    * @param email Email of the new user
-   * @param given_name The first name of new user
-   * @param family_name The last name of new user
+   * @param firstName The first name of new user
+   * @param lastName The last name of new user
    * @param password Password of new user
    *
    * @returns The new user's details

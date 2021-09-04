@@ -9,7 +9,7 @@ export default class Address extends BaseModel {
   public streetAddress1: string
 
   @column()
-  public streetAddress2: string
+  public streetAddress2?: string
 
   @column()
   public city: string
