@@ -25,5 +25,11 @@ Route.group(() => {
     Route.post('login', 'AuthController.login');
     Route.post('logout', 'AuthController.logout').middleware('auth:api');
     Route.post('signup', 'AuthController.signUp');
+
+    Route.get('getAllAddresses', 'AddressesController.getAllAddresses');
+    Route.get('getAddress', 'AddressesController.getAddress');
+    Route.post('createAddress', 'AddressesController.createAddress');
+    Route.post('editAddress', 'AddressesController.editAddress');
+    Route.post('deleteAddress', 'AddressesController.deleteAddress');
   }).prefix('auth')
 }).prefix('api');

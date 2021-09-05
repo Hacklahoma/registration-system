@@ -5,11 +5,11 @@ export default class Address extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
-  @column()
+  @column({columnName: 'street_address_1'})
   public streetAddress1: string
 
-  @column()
-  public streetAddress2: string
+  @column({columnName: 'street_address_2'})
+  public streetAddress2?: string
 
   @column()
   public city: string
