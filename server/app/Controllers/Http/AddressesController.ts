@@ -34,8 +34,7 @@ export default class AddressesController {
      * @returns A JSON representation of the target address
      */
     public async getAddress({ request, response }: HttpContextContract) {
-        //FIXME "request.input('id)" is allways null ---------------------------------------------------------------------------------------
-        const targetAddress = await Address.findBy('id', request.input('id'));
+        const targetAddress = await Address.findBy('id', request.param('id'));
 
         //Address not found case
         if (!targetAddress) {

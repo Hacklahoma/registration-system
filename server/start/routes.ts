@@ -21,15 +21,19 @@
 import Route from '@ioc:Adonis/Core/Route'
 
 Route.group(() => {
+  //Authorization Routes
   Route.group(() => {
     Route.post('login', 'AuthController.login');
     Route.post('logout', 'AuthController.logout').middleware('auth:api');
     Route.post('signup', 'AuthController.signUp');
-
-    Route.get('getAllAddresses', 'AddressesController.getAllAddresses');
-    Route.get('getAddress', 'AddressesController.getAddress');
-    Route.post('createAddress', 'AddressesController.createAddress');
-    Route.post('editAddress', 'AddressesController.editAddress');
-    Route.post('deleteAddress', 'AddressesController.deleteAddress');
   }).prefix('auth')
+
+  //Address Routes
+  Route.group(() => {
+    Route.get('/', 'AddressesController.getAllAddresses');
+    Route.get('/:id', 'AddressesController.getAddress');
+    Route.post('create', 'AddressesController.createAddress');
+    Route.post('edit', 'AddressesController.editAddress');
+    Route.post('delete', 'AddressesController.deleteAddress');
+  }).prefix('address');
 }).prefix('api');
