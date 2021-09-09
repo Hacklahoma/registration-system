@@ -2,15 +2,17 @@ import { DateTime } from 'luxon'
 import { 
   BaseModel, 
   column,
-  HasOne,
-  hasOne,
   BelongsTo,
-  belongsTo
+  belongsTo,
+  HasMany,
+  hasMany
 } from '@ioc:Adonis/Lucid/Orm'
 import Address from './Address'
 import User from './User'
+import Form from './Form'
 
 export default class Event extends BaseModel {
+  /* Columns */
   @column({ isPrimary: true })
   public id: number
 
@@ -30,12 +32,6 @@ export default class Event extends BaseModel {
   public type: 'In-Person' | 'Online' | 'Hybrid'
 
   @column()
-  public addressId: number
-
-  @hasOne(() => Address, {localKey: 'address_id', foreignKey: 'id'})
-  public address: HasOne<typeof Address>
-
-  @column()
   public currentNumberOfApplicants: number
 
   @column()
@@ -44,21 +40,31 @@ export default class Event extends BaseModel {
   @column()
   public numberOfGroups: number
 
-  @column()
-  public createdBy: number
-
-  @belongsTo(() => User)
-  public createdByUser: BelongsTo<typeof User>
-
-  @column()
-  public updatedBy: number
-
-  @belongsTo(() => User)
-  public updatedByUser: BelongsTo<typeof User>
-
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime
+
+  /* References */
+  @column()
+  public addressId?: number
+
+  @belongsTo(() => Address, {localKey: 'id', foreignKey: 'addressId'})
+  public address: BelongsTo<typeof Address>
+
+  @column()
+  public createdBy: number
+
+  @belongsTo(() => User, {localKey: 'id', foreignKey: 'createdBy'})
+  public createdByUser: BelongsTo<typeof User>
+
+  @column()
+  public updatedBy: number
+
+  @belongsTo(() => User, {localKey: 'id', foreignKey: 'updatedBy'})
+  public updatedByUser: BelongsTo<typeof User>
+
+  @hasMany(() => Form)
+  public forms: HasMany<typeof Form>
 }
