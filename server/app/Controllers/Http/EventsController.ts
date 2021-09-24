@@ -1,23 +1,80 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import Event from 'App/Models/Event';
+import CreateEventValidator from 'App/Validators/CreateEventValidator';
 
 export default class EventsController {
-    public async getAllEvents() {
+    public async getAllEvents({ auth, response }: HttpContextContract) {
+        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
 
+        const events = await Event.all();
+
+        //No events found case
+        if (!events || events.length == 0) {
+            return response.badRequest({error: "No events found."});
+        }
+
+        return events;
     }
 
-    public async getEvent() {
-        
+    public async getEvent({ auth, response, request }: HttpContextContract) {
+        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
+
+        const targetEvent = await Event.findBy('id', request.param('id'));
+
+        //Event not found case
+        if (!targetEvent) {
+            return response.badRequest({error: "No event found."});
+        }
+
+        return targetEvent.toJSON();
     }
 
-    public async createEvent() {
+    public async createEvent({ auth, request }: HttpContextContract) {
+        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
         
+        //Read in data and create a new event with the created data
+        const data = await request.validate(CreateEventValidator);
+        const newEvent = await Event.create(data);
+
+        //Save the new event and return its JSON
+        await newEvent.save();
+        return newEvent.toJSON();
     }
 
-    public async editEvent() {
+    public async editEvent({ auth, response, request }: HttpContextContract) {
+        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
         
+        const targetEvent = await Event.findBy('id', request.input('id'));
+
+        //Event not found case
+        if (!targetEvent) {
+            return response.badRequest({error: "The target address was not found."});
+        }
+
+        //Read in new data
+        const newData = await request.validate(CreateEventValidator);
+
+        //Overwrite the old data with the new data -------------------------------------------------------------------------------------------------------------------------------
+        
+
+        //Return the edited event's JSON
+        return targetEvent.toJSON();
     }
 
-    public async deleteEvent() {
-        
+    public async deleteEvent({ auth, response, request }: HttpContextContract) {
+        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
+
+        const targetEvent = await Event.findBy('id', request.input('id'));
+
+        //Event not found case
+        if (!targetEvent) {
+            return response.badRequest({error: "The target event was not found."});
+        }
+
+        //Delete the event and return its JSON
+        //This is helpful in the case that we still need to access
+        //the deleted event temporarily
+        await targetEvent.delete();
+        return targetEvent.toJSON();
     }
 }
