@@ -1,8 +1,10 @@
 import Hash from '@ioc:Adonis/Core/Hash';
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Database from '@ioc:Adonis/Lucid/Database';
+import ConfirmEmail from 'App/Models/ConfirmEmail';
 import User from 'App/Models/User';
 import SignUpValidator from 'App/Validators/SignUpValidator';
+import Mail from '@ioc:Adonis/Addons/Mail'
 import { DateTime } from 'luxon';
 
 export default class AuthController {
@@ -91,6 +93,26 @@ export default class AuthController {
     newUser.lastLogin = DateTime.local();
 
     await newUser.save();
+
+    // Create a new email confirmation
+    const confirmEmail = await ConfirmEmail.create({
+      user_id: newUser.id
+    });
+
+    await Mail.send((message) => {
+      message
+        .from('team@hacklahoma.org')
+        .to(newUser.email)
+        .subject('Hello!')
+        .htmlView('emails/welcome', { 
+          user: {
+            firstName: newUser.firstName,
+            lastName: newUser.lastName
+          },
+          url: `http://localhost:3333/api/confirm_email?code=${confirmEmail.code}`
+        })
+    })
+    
 
     return newUser.toJSON();
   }
