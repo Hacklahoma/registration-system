@@ -9,7 +9,6 @@ export default class Forms extends BaseSchema {
       table.integer('event_id').unsigned().references('id').inTable('events')
 
       table.enum('form_type', ['In-Person', 'Online', 'Hybrid']).notNullable()
-      table.integer('number_of_questions').notNullable().defaultTo(0)
       table.jsonb('form_questions')
       /**
        * Uses timestamptz for PostgreSQL and DATETIME2 for MSSQL
