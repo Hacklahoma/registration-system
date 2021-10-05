@@ -3,9 +3,7 @@ import Event from 'App/Models/Event';
 import CreateEventValidator from 'App/Validators/CreateEventValidator';
 
 export default class EventsController {
-    public async getAllEvents({ auth, response }: HttpContextContract) {
-        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
-
+    public async getAllEvents({ response }: HttpContextContract) {
         const events = await Event.all();
 
         //No events found case
@@ -16,9 +14,7 @@ export default class EventsController {
         return events;
     }
 
-    public async getEvent({ auth, response, request }: HttpContextContract) {
-        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
-
+    public async getEvent({ response, request }: HttpContextContract) {
         const targetEvent = await Event.findBy('id', request.param('id'));
 
         //Event not found case
@@ -30,7 +26,14 @@ export default class EventsController {
     }
 
     public async createEvent({ auth, request }: HttpContextContract) {
-        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
+        //Check if there is a User, and if there is, if they are an admin
+        if (auth.user) {
+            if (auth.user.accountType != 'Admin') {
+                return;
+            }
+        } else {
+            return;
+        }
         
         //Read in data and create a new event with the created data
         const data = await request.validate(CreateEventValidator);
@@ -42,7 +45,14 @@ export default class EventsController {
     }
 
     public async editEvent({ auth, response, request }: HttpContextContract) {
-        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
+        //Check if there is a User, and if there is, if they are an admin
+        if (auth.user) {
+            if (auth.user.accountType != 'Admin') {
+                return;
+            }
+        } else {
+            return;
+        }
         
         const targetEvent = await Event.findBy('id', request.input('id'));
 
@@ -62,7 +72,14 @@ export default class EventsController {
     }
 
     public async deleteEvent({ auth, response, request }: HttpContextContract) {
-        //TODO: Check if user is an admin -------------------------------------------------------------------------------------------------------------------------------
+        //Check if there is a User, and if there is, if they are an admin
+        if (auth.user) {
+            if (auth.user.accountType != 'Admin') {
+                return;
+            }
+        } else {
+            return;
+        }
 
         const targetEvent = await Event.findBy('id', request.input('id'));
 
