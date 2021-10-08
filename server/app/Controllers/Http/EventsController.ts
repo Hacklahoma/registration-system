@@ -25,14 +25,14 @@ export default class EventsController {
         return targetEvent.toJSON();
     }
 
-    public async createEvent({ auth, request }: HttpContextContract) {
+    public async createEvent({ auth, response, request }: HttpContextContract) {
         //Check if there is a User, and if there is, if they are an admin
         if (auth.user) {
             if (auth.user.accountType != 'Admin') {
-                return;
+                return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return;
+            return response.badRequest({error: "Login as an admin to perform this action."});
         }
         
         //Read in data and create a new event with the created data
@@ -48,10 +48,10 @@ export default class EventsController {
         //Check if there is a User, and if there is, if they are an admin
         if (auth.user) {
             if (auth.user.accountType != 'Admin') {
-                return;
+                return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return;
+            return response.badRequest({error: "Login as an admin to perform this action."});
         }
         
         const targetEvent = await Event.findBy('id', request.input('id'));
@@ -73,10 +73,10 @@ export default class EventsController {
         //Check if there is a User, and if there is, if they are an admin
         if (auth.user) {
             if (auth.user.accountType != 'Admin') {
-                return;
+                return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return;
+            return response.badRequest({error: "Login as an admin to perform this action."});
         }
 
         const targetEvent = await Event.findBy('id', request.input('id'));
