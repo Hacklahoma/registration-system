@@ -93,13 +93,7 @@ export default class AddressesController {
 
         //Read in new data
         const newData = await request.validate(CreateAddressValidator);
-
-        //Overwrite the old data with the new data
-        targetAddress.streetAddress1 = newData.streetAddress1;
-        targetAddress.streetAddress2 = newData.streetAddress2;
-        targetAddress.city = newData.city;
-        targetAddress.state = newData.state;
-        targetAddress.zipcode = newData.zipcode;
+        targetAddress.merge(newData).save();
 
         //Return the edited addresses JSON
         return targetAddress.toJSON();

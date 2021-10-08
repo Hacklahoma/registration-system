@@ -61,11 +61,9 @@ export default class EventsController {
             return response.badRequest({error: "The target address was not found."});
         }
 
-        //Read in new data
+        //Read in new data and overwrite the old event's data
         const newData = await request.validate(CreateEventValidator);
-
-        //Overwrite the old data with the new data -------------------------------------------------------------------------------------------------------------------------------
-        
+        targetEvent.merge(newData).save();
 
         //Return the edited event's JSON
         return targetEvent.toJSON();
