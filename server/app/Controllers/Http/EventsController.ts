@@ -26,13 +26,18 @@ export default class EventsController {
     }
 
     public async createEvent({ auth, response, request }: HttpContextContract) {
-        //Check if there is a User, and if there is, if they are an admin
-        if (auth.user) {
-            if (auth.user.accountType != 'Admin') {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
                 return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return response.badRequest({error: "Login as an admin to perform this action."});
+            return response.badRequest({error: "User not found."});
         }
         
         //Read in data and create a new event with the created data
@@ -45,13 +50,18 @@ export default class EventsController {
     }
 
     public async editEvent({ auth, response, request }: HttpContextContract) {
-        //Check if there is a User, and if there is, if they are an admin
-        if (auth.user) {
-            if (auth.user.accountType != 'Admin') {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
                 return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return response.badRequest({error: "Login as an admin to perform this action."});
+            return response.badRequest({error: "User not found."});
         }
         
         const targetEvent = await Event.findBy('id', request.input('id'));
@@ -70,13 +80,18 @@ export default class EventsController {
     }
 
     public async deleteEvent({ auth, response, request }: HttpContextContract) {
-        //Check if there is a User, and if there is, if they are an admin
-        if (auth.user) {
-            if (auth.user.accountType != 'Admin') {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
                 return response.badRequest({error: "User must be an admin."});
             }
         } else {
-            return response.badRequest({error: "Login as an admin to perform this action."});
+            return response.badRequest({error: "User not found."});
         }
 
         const targetEvent = await Event.findBy('id', request.input('id'));
