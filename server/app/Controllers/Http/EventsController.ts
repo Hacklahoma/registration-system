@@ -3,6 +3,14 @@ import Event from 'App/Models/Event';
 import CreateEventValidator from 'App/Validators/CreateEventValidator';
 
 export default class EventsController {
+    /**
+     * @name getAllEvents
+     * @description Grabs an array of all events stored on the database
+     * @type GET
+     * @route /endpoints/event/getAllEvents
+     * 
+     * @returns An array of all events stored on the database
+     */
     public async getAllEvents({ response }: HttpContextContract) {
         const events = await Event.all();
 
@@ -14,6 +22,16 @@ export default class EventsController {
         return events;
     }
 
+    /**
+     * @name getEvent
+     * @description Grabs a target event from the database
+     * @type GET
+     * @route /endpoints/event/getEvent
+     * 
+     * @param id The id of the target event 
+     * 
+     * @returns A JSON representation of the target event
+     */
     public async getEvent({ response, request }: HttpContextContract) {
         const targetEvent = await Event.findBy('id', request.param('id'));
 
@@ -25,6 +43,26 @@ export default class EventsController {
         return targetEvent.toJSON();
     }
 
+    /**
+     * @name createEvent
+     * @description Creates a new event
+     * @type POST
+     * @route /endpoints/event/createEvent
+     * 
+     * @param name The name of the event
+     * @param description The description of the event
+     * @param eventDate The date of the event
+     * @param registrationCutOff The registration cutoff for the event
+     * @param type The type for the event
+     * @param currentNumberOfApplicants The current number of applicants for the event
+     * @param acceptanceDays The number of acceptance days for the event
+     * @param numberOfGroups The number of groups for the event
+     * @param addressId The id of the address of the event
+     * @param createdBy The id of the user who created this event
+     * @param updatedBy The id of the user who updated this event
+     * 
+     * @returns A JSON of the new event
+     */
     public async createEvent({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
@@ -49,6 +87,27 @@ export default class EventsController {
         return newEvent.toJSON();
     }
 
+    /**
+     * @name editEvent
+     * @description Edits a target event
+     * @type POST
+     * @route /endpoints/event/editEvent
+     * 
+     * @param id The id of the target event
+     * @param name The name of the event
+     * @param description The description of the event
+     * @param eventDate The date of the event
+     * @param registrationCutOff The registration cutoff for the event
+     * @param type The type for the event
+     * @param currentNumberOfApplicants The current number of applicants for the event
+     * @param acceptanceDays The number of acceptance days for the event
+     * @param numberOfGroups The number of groups for the event
+     * @param addressId The id of the address of the event
+     * @param createdBy The id of the user who created this event
+     * @param updatedBy The id of the user who updated this event
+     * 
+     * @returns A JSON of the edited event
+     */
     public async editEvent({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
@@ -79,6 +138,16 @@ export default class EventsController {
         return targetEvent.toJSON();
     }
 
+    /**
+     * @name deleteEvent
+     * @description Deletes a target event
+     * @type POST
+     * @route /endpoints/event/deleteEvent
+     * 
+     * @param  id The id of the target event
+     * 
+     * @returns A JSON of the deleted event
+     */
     public async deleteEvent({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
