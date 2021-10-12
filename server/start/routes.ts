@@ -36,4 +36,13 @@ Route.group(() => {
     Route.post('edit', 'AddressesController.editAddress');
     Route.post('delete', 'AddressesController.deleteAddress');
   }).prefix('address');
+
+  //Event Routes
+  Route.group(() => {
+    Route.get('/', 'EventsController.getAllEvents');
+    Route.get('/:id', 'EventsController.getEvent');
+    Route.post('create', 'EventsController.createEvent');
+    Route.post('edit', 'EventsController.editEvent');
+    Route.post('delete', 'EventsController.deleteEvent');
+  }).prefix('event');
 }).prefix('api');
