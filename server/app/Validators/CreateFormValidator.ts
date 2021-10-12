@@ -1,4 +1,4 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class CreateFormValidator {
@@ -25,6 +25,9 @@ export default class CreateFormValidator {
 	 *    ```
 	 */
   public schema = schema.create({
+	  formType: schema.enum(['In-Person', 'Online', 'Hybrid'] as const, [rules.required()]),
+	  formQuestions: schema.object([rules.required()]).anyMembers(),
+	  eventId: schema.number([rules.required()])
   })
 
 	/**
@@ -38,5 +41,7 @@ export default class CreateFormValidator {
 	 * }
 	 *
 	 */
-  public messages = {}
+  public messages = {
+	'required': 'The {{ field }} is required to create a new form.',
+  }
 }

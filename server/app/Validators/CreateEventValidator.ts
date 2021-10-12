@@ -50,6 +50,6 @@ export default class CreateEventValidator {
 	 *
 	 */
   public messages = {
-	'required': 'The {{ field }} is required to create a new address.',
+	'required': 'The {{ field }} is required to create a new event.',
   }
 }
