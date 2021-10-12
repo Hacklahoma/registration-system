@@ -127,7 +127,7 @@ export default class EventsController {
 
         //Event not found case
         if (!targetEvent) {
-            return response.badRequest({error: "The target address was not found."});
+            return response.badRequest({error: "The target event was not found."});
         }
 
         //Read in new data and overwrite the old event's data
