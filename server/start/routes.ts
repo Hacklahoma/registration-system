@@ -45,4 +45,13 @@ Route.group(() => {
     Route.post('edit', 'EventsController.editEvent');
     Route.post('delete', 'EventsController.deleteEvent');
   }).prefix('event');
+
+  //Form Routes
+  Route.group(() => {
+    Route.get('/', 'FormsController.getAllForms');
+    Route.get('/:id', 'FormsController.getForm');
+    Route.post('create', 'FormsController.createForm');
+    Route.post('edit', 'FormsController.editForm');
+    Route.post('delete', 'FormsController.deleteForm');
+  }).prefix('form');
 }).prefix('api');

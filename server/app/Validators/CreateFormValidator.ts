@@ -1,7 +1,7 @@
 import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
-export default class CreateEventValidator {
+export default class CreateFormValidator {
   constructor (protected ctx: HttpContextContract) {
   }
 
@@ -25,18 +25,10 @@ export default class CreateEventValidator {
 	 *    ```
 	 */
   public schema = schema.create({
-		name: schema.string({}, [rules.required()]),
-		description: schema.string({}, [rules.required()]),
-		eventDate: schema.date({}, [rules.required()]),
-		registrationCutOff: schema.date({}, [rules.required()]),
-		type: schema.enum(['In-Person', 'Online', 'Hybrid'] as const, [rules.required()]),
-		currentNumberOfApplicants: schema.number([rules.required()]),
-		acceptanceDays: schema.number([rules.required()]),
-		numberOfGroups: schema.number([rules.required()]),
-		addressId: schema.number.optional(),
-		createdBy: schema.number([rules.required()]),
-		updatedBy: schema.number([rules.required()]),
-  });
+	  formType: schema.enum(['In-Person', 'Online', 'Hybrid'] as const, [rules.required()]),
+	  formQuestions: schema.object([rules.required()]).anyMembers(),
+	  eventId: schema.number([rules.required()])
+  })
 
 	/**
 	 * Custom messages for validation failures. You can make use of dot notation `(.)`
@@ -50,6 +42,6 @@ export default class CreateEventValidator {
 	 *
 	 */
   public messages = {
-	'required': 'The {{ field }} is required to create a new event.',
+	'required': 'The {{ field }} is required to create a new form.',
   }
 }
