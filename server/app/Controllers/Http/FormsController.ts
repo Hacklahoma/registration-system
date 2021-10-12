@@ -2,7 +2,7 @@ import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 import Form from 'App/Models/Form';
 import CreateFormValidator from 'App/Validators/CreateFormValidator';
 
-export default class EventsController {
+export default class FormsController {
     /**
      * @name getAllForms
      * @description Grabs an array of all forms stored on the database
