@@ -45,4 +45,22 @@ Route.group(() => {
     Route.post('edit', 'EventsController.editEvent');
     Route.post('delete', 'EventsController.deleteEvent');
   }).prefix('event');
+
+  //Application Routes
+  Route.group(() => {
+    Route.get('/', 'ApplicationsController.getAllApplications');
+    Route.get('/:id', 'ApplicationsController.getApplication');
+    Route.post('create', 'ApplicationsController.createApplication');
+    Route.post('edit', 'ApplicationsController.editApplication');
+    Route.post('delete', 'ApplicationsController.deleteApplication');
+  }).prefix('application');
+
+  //Team Routes
+  Route.group(() => {
+    Route.get('/', 'TeamsController.getAllTeams');
+    Route.get('/:id', 'TeamsController.getTeam');
+    Route.post('create', 'TeamsController.createTeam');
+    Route.post('edit', 'TeamsController.editTeam');
+    Route.post('delete', 'TeamsController.deleteTeam');
+  }).prefix('team');
 }).prefix('api');
