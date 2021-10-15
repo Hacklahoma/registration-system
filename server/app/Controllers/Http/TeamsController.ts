@@ -1,6 +1,6 @@
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
-import Event from 'App/Models/Event';
-import CreateEventValidator from 'App/Validators/CreateEventValidator';
+import Team from 'App/Models/Team';
+import CreateTeamValidator from 'App/Validators/CreateTeamValidator';
 
 export default class TeamsController {
     /**
@@ -12,7 +12,7 @@ export default class TeamsController {
      * @returns An array of all teams stored on the database
      */
      public async getAllTeams({ response }: HttpContextContract) {
-        const teams = await Event.all();
+        const teams = await Team.all();
 
         //No teams found case
         if (!teams || teams.length == 0) {
@@ -33,7 +33,7 @@ export default class TeamsController {
      * @returns A JSON representation of the target team
      */
     public async getTeam({ response, request }: HttpContextContract) {
-        const targetTeam = await Event.findBy('id', request.param('id'));
+        const targetTeam = await Team.findBy('id', request.param('id'));
 
         //Team not found case
         if (!targetTeam) {
@@ -69,8 +69,8 @@ export default class TeamsController {
         }
         
         //Read in data and create a new team with the created data
-        const data = await request.validate(CreateEventValidator);
-        const newTeam = await Event.create(data);
+        const data = await request.validate(CreateTeamValidator);
+        const newTeam = await Team.create(data);
 
         //Save the new team and return its JSON
         await newTeam.save();
@@ -103,7 +103,7 @@ export default class TeamsController {
             return response.badRequest({error: "User not found."});
         }
         
-        const targetTeam = await Event.findBy('id', request.input('id'));
+        const targetTeam = await Team.findBy('id', request.input('id'));
 
         //Team not found case
         if (!targetTeam) {
@@ -111,7 +111,7 @@ export default class TeamsController {
         }
 
         //Read in new data and overwrite the old team's data
-        const newData = await request.validate(CreateEventValidator);
+        const newData = await request.validate(CreateTeamValidator);
         targetTeam.merge(newData).save();
 
         //Return the edited team's JSON
@@ -143,7 +143,7 @@ export default class TeamsController {
             return response.badRequest({error: "User not found."});
         }
 
-        const targetTeam = await Event.findBy('id', request.input('id'));
+        const targetTeam = await Team.findBy('id', request.input('id'));
 
         //Team not found case
         if (!targetTeam) {
