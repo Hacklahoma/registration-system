@@ -8,8 +8,29 @@ import { DateTime } from 'luxon'
 
 export default class TestSeeder extends BaseSeeder {
   public async run () {
+    const user = await User.createMany([
+        {
+            email: 'admin@test.com',
+            password: 'p4ssw0rd',
+            firstName: 'admin',
+            lastName: 'admin',
+            status: 'Active',
+            accountType: 'Admin',
+            discordId: 1n
+        },
+        {
+            email: 'hacker@test.com',
+            password: 'p4ssw0rd',
+            firstName: 'hacker',
+            lastName: 'thon',
+            status: 'Active',
+            accountType: 'Hacker',
+            discordId: 2n
+        },
+
+    ])
     // User Creation Test
-    const user = await User.create({
+    /*const user = await User.create({
       email: 'test@test.com',
       password: 'p4ssw0rd',
       firstName: 'test',
@@ -82,13 +103,5 @@ export default class TestSeeder extends BaseSeeder {
     const eventTest = await Event.query().where('id', 1).preload('address').preload('forms').first();
 
     console.log(eventTest?.address.streetAddress1);
-    console.log(eventTest?.forms[1].formQuestions)
-
-    // Testing Email Confirms
-    const confirmEmail = await ConfirmEmail.create({
-      user_id: user.id
-    })
-
-    console.log(confirmEmail.code);
   }
 }

@@ -8,7 +8,7 @@ export default class AddressesController {
      * @name getAllAddresses
      * @description Grabs an array of all addresses stored on the database
      * @type GET
-     * @route /endpoints/addresses/getAlAddresses
+     * @route /endpoints/address/getAllAddresses
      * 
      * @returns An array of all addresses stored on the database
      */
@@ -27,7 +27,7 @@ export default class AddressesController {
      * @name getAddress
      * @description Grabs a target address from the database
      * @type GET
-     * @route /endpoints/addresses/getAddress
+     * @route /endpoints/address/getAddress
      * 
      * @param id The id of the target address
      *  
@@ -48,7 +48,7 @@ export default class AddressesController {
      * @name createAddress
      * @description Creates a new address
      * @type POST
-     * @route /endpoints/addresses/createAddress
+     * @route /endpoints/address/createAddress
      * 
      * @param streetAddress1 The first line of the street address
      * @param streetAddress2 The optional second line of the street address
@@ -72,7 +72,7 @@ export default class AddressesController {
      * @name editAddress
      * @description Edits a target address
      * @type POST
-     * @route /endpoints/addresses/editAddress
+     * @route /endpoints/address/editAddress
      * 
      * @param id The id of the target address
      * @param streetAddress1 The first line of the new street address
@@ -93,13 +93,7 @@ export default class AddressesController {
 
         //Read in new data
         const newData = await request.validate(CreateAddressValidator);
-
-        //Overwrite the old data with the new data
-        targetAddress.streetAddress1 = newData.streetAddress1;
-        targetAddress.streetAddress2 = newData.streetAddress2;
-        targetAddress.city = newData.city;
-        targetAddress.state = newData.state;
-        targetAddress.zipcode = newData.zipcode;
+        targetAddress.merge(newData).save();
 
         //Return the edited addresses JSON
         return targetAddress.toJSON();
@@ -107,9 +101,9 @@ export default class AddressesController {
 
     /**
      * @name deleteAddress
-     * @description Deletes a taret address
+     * @description Deletes a target address
      * @type POST
-     * @route /endpoints/addresses/deleteAddress
+     * @route /endpoints/address/deleteAddress
      * 
      * @param id The id of the target address
      *  
