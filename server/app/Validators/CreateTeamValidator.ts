@@ -38,5 +38,7 @@ export default class CreateTeamValidator {
 	 * }
 	 *
 	 */
-  public messages = {}
+  public messages = {
+	'required': 'The {{ field }} is required to create a new address.',
+  }
 }
