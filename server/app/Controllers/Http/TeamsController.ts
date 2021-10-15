@@ -4,66 +4,56 @@ import CreateEventValidator from 'App/Validators/CreateEventValidator';
 
 export default class TeamsController {
     /**
-     * @name getAllEvents
-     * @description Grabs an array of all events stored on the database
+     * @name getAllTeams
+     * @description Grabs an array of all teams stored on the database
      * @type GET
-     * @route /endpoints/event/getAllEvents
+     * @route /endpoints/team/getAllTeams
      * 
-     * @returns An array of all events stored on the database
+     * @returns An array of all teams stored on the database
      */
-     public async getAllEvents({ response }: HttpContextContract) {
-        const events = await Event.all();
+     public async getAllTeams({ response }: HttpContextContract) {
+        const teams = await Event.all();
 
-        //No events found case
-        if (!events || events.length == 0) {
-            return response.badRequest({error: "No events found."});
+        //No teams found case
+        if (!teams || teams.length == 0) {
+            return response.badRequest({error: "No teams found."});
         }
 
-        return events;
+        return teams;
     }
 
     /**
-     * @name getEvent
-     * @description Grabs a target event from the database
+     * @name getTeam
+     * @description Grabs a target team from the database
      * @type GET
-     * @route /endpoints/event/getEvent
+     * @route /endpoints/team/getTeam
      * 
-     * @param id The id of the target event 
+     * @param id The id of the target team 
      * 
-     * @returns A JSON representation of the target event
+     * @returns A JSON representation of the target team
      */
-    public async getEvent({ response, request }: HttpContextContract) {
-        const targetEvent = await Event.findBy('id', request.param('id'));
+    public async getTeam({ response, request }: HttpContextContract) {
+        const targetTeam = await Event.findBy('id', request.param('id'));
 
-        //Event not found case
-        if (!targetEvent) {
-            return response.badRequest({error: "No event found."});
+        //Team not found case
+        if (!targetTeam) {
+            return response.badRequest({error: "No team found."});
         }
 
-        return targetEvent.toJSON();
+        return targetTeam.toJSON();
     }
 
     /**
-     * @name createEvent
-     * @description Creates a new event
+     * @name createTeam
+     * @description Creates a new team
      * @type POST
-     * @route /endpoints/event/createEvent
+     * @route /endpoints/team/createTeam
      * 
-     * @param name The name of the event
-     * @param description The description of the event
-     * @param eventDate The date of the event
-     * @param registrationCutOff The registration cutoff for the event
-     * @param type The type for the event
-     * @param currentNumberOfApplicants The current number of applicants for the event
-     * @param acceptanceDays The number of acceptance days for the event
-     * @param numberOfGroups The number of groups for the event
-     * @param addressId The id of the address of the event
-     * @param createdBy The id of the user who created this event
-     * @param updatedBy The id of the user who updated this event
+     * @param 
      * 
-     * @returns A JSON of the new event
+     * @returns A JSON of the new team
      */
-    public async createEvent({ auth, response, request }: HttpContextContract) {
+    public async createTeam({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
         // Get the user from that token
@@ -78,37 +68,27 @@ export default class TeamsController {
             return response.badRequest({error: "User not found."});
         }
         
-        //Read in data and create a new event with the created data
+        //Read in data and create a new team with the created data
         const data = await request.validate(CreateEventValidator);
-        const newEvent = await Event.create(data);
+        const newTeam = await Event.create(data);
 
-        //Save the new event and return its JSON
-        await newEvent.save();
-        return newEvent.toJSON();
+        //Save the new team and return its JSON
+        await newTeam.save();
+        return newTeam.toJSON();
     }
 
     /**
-     * @name editEvent
-     * @description Edits a target event
+     * @name editTeam
+     * @description Edits a target team
      * @type POST
-     * @route /endpoints/event/editEvent
+     * @route /endpoints/team/editTeam
      * 
-     * @param id The id of the target event
-     * @param name The name of the event
-     * @param description The description of the event
-     * @param eventDate The date of the event
-     * @param registrationCutOff The registration cutoff for the event
-     * @param type The type for the event
-     * @param currentNumberOfApplicants The current number of applicants for the event
-     * @param acceptanceDays The number of acceptance days for the event
-     * @param numberOfGroups The number of groups for the event
-     * @param addressId The id of the address of the event
-     * @param createdBy The id of the user who created this event
-     * @param updatedBy The id of the user who updated this event
+     * @param id The id of the target team
+     * @param 
      * 
-     * @returns A JSON of the edited event
+     * @returns A JSON of the edited team
      */
-    public async editEvent({ auth, response, request }: HttpContextContract) {
+    public async editTeam({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
         // Get the user from that token
@@ -123,32 +103,32 @@ export default class TeamsController {
             return response.badRequest({error: "User not found."});
         }
         
-        const targetEvent = await Event.findBy('id', request.input('id'));
+        const targetTeam = await Event.findBy('id', request.input('id'));
 
-        //Event not found case
-        if (!targetEvent) {
-            return response.badRequest({error: "The target address was not found."});
+        //Team not found case
+        if (!targetTeam) {
+            return response.badRequest({error: "The target team was not found."});
         }
 
-        //Read in new data and overwrite the old event's data
+        //Read in new data and overwrite the old team's data
         const newData = await request.validate(CreateEventValidator);
-        targetEvent.merge(newData).save();
+        targetTeam.merge(newData).save();
 
-        //Return the edited event's JSON
-        return targetEvent.toJSON();
+        //Return the edited team's JSON
+        return targetTeam.toJSON();
     }
 
     /**
-     * @name deleteEvent
-     * @description Deletes a target event
+     * @name deleteTeam
+     * @description Deletes a target team
      * @type POST
-     * @route /endpoints/event/deleteEvent
+     * @route /endpoints/team/deleteTeam
      * 
-     * @param  id The id of the target event
+     * @param  id The id of the target team
      * 
-     * @returns A JSON of the deleted event
+     * @returns A JSON of the deleted team
      */
-    public async deleteEvent({ auth, response, request }: HttpContextContract) {
+    public async deleteTeam({ auth, response, request }: HttpContextContract) {
         // In order to check if the token is actually legit
         await auth.use('api').authenticate();
         // Get the user from that token
@@ -163,17 +143,17 @@ export default class TeamsController {
             return response.badRequest({error: "User not found."});
         }
 
-        const targetEvent = await Event.findBy('id', request.input('id'));
+        const targetTeam = await Event.findBy('id', request.input('id'));
 
-        //Event not found case
-        if (!targetEvent) {
-            return response.badRequest({error: "The target event was not found."});
+        //Team not found case
+        if (!targetTeam) {
+            return response.badRequest({error: "The target team was not found."});
         }
 
-        //Delete the event and return its JSON
+        //Delete the team and return its JSON
         //This is helpful in the case that we still need to access
-        //the deleted event temporarily
-        await targetEvent.delete();
-        return targetEvent.toJSON();
+        //the deleted team temporarily
+        await targetTeam.delete();
+        return targetTeam.toJSON();
     }
 }
