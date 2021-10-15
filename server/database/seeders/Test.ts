@@ -1,5 +1,6 @@
 import BaseSeeder from '@ioc:Adonis/Lucid/Seeder'
 import Address from 'App/Models/Address'
+import ConfirmEmail from 'App/Models/ConfirmEmail'
 import Event from 'App/Models/Event'
 import Form from 'App/Models/Form'
 import User from 'App/Models/User'
@@ -102,6 +103,5 @@ export default class TestSeeder extends BaseSeeder {
     const eventTest = await Event.query().where('id', 1).preload('address').preload('forms').first();
 
     console.log(eventTest?.address.streetAddress1);
-    console.log(eventTest?.forms[1].formQuestions)*/
   }
 }
