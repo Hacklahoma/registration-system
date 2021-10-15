@@ -1,18 +1,25 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, beforeCreate } from '@ioc:Adonis/Lucid/Orm'
+import { 
+  BaseModel, 
+  column,
+  BelongsTo,
+  belongsTo, 
+  beforeCreate
+} from '@ioc:Adonis/Lucid/Orm'
+import User from './User'
 
-export default class Team extends BaseModel {
+export default class ConfirmEmail extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
-  public name: string
+  public user_id: number
 
-  @column()
-  public public: boolean
+  @belongsTo(() => User)
+  public user: BelongsTo<typeof User>
 
-  @column()
-  public code
+  @column() 
+  public code: string
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
@@ -32,8 +39,9 @@ export default class Team extends BaseModel {
     return result;
   }
   
+
   @beforeCreate()
-  public static assignCode(team: Team) {
-    team.code = Team.makeCode(8);
+  public static assignCode(confirmEmail: ConfirmEmail) {
+    confirmEmail.code = ConfirmEmail.makeCode(32);
   }
 }
