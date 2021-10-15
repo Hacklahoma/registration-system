@@ -58,7 +58,21 @@ export default class AddressesController {
      * 
      * @returns A JSON of the new address
      */
-    public async createAddress({ request }: HttpContextContract) {
+    public async createAddress({ request, auth, response }: HttpContextContract) {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
+                return response.badRequest({error: "User must be an admin."});
+            }
+        } else {
+            return response.badRequest({error: "User not found."});
+        }
+
         //Read in data and create a new address with the created data
         const data = await request.validate(CreateAddressValidator);
         const newAddress = await Address.create(data);
@@ -83,7 +97,21 @@ export default class AddressesController {
      *  
      * @returns A JSON of the edited address
      */
-    public async editAddress({ request, response }: HttpContextContract) {
+    public async editAddress({ request, response, auth }: HttpContextContract) {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
+                return response.badRequest({error: "User must be an admin."});
+            }
+        } else {
+            return response.badRequest({error: "User not found."});
+        }
+
         const targetAddress = await Address.findBy('id', request.input('id'));
 
         //Address not found case
@@ -109,7 +137,21 @@ export default class AddressesController {
      *  
      * @returns A JSON of the deleted address
      */
-    public async deleteAddress({ request, response }: HttpContextContract) {
+    public async deleteAddress({ request, response, auth }: HttpContextContract) {
+        // In order to check if the token is actually legit
+        await auth.use('api').authenticate();
+        // Get the user from that token
+        const user = auth.use('api').user;
+
+        //Admin Check
+        if (user) {
+            if (user.accountType !== 'Admin') {
+                return response.badRequest({error: "User must be an admin."});
+            }
+        } else {
+            return response.badRequest({error: "User not found."});
+        }
+
         const targetAddress = await Address.findBy('id', request.input('id'));
 
         //Address not found case
