@@ -1,14 +1,22 @@
-FROM node:current-alpine
+FROM node:16-alpine
 
 # Configure Server
 WORKDIR /app
 
-COPY package*.json .
+RUN mkdir -p node_modules
 
-RUN npm install
+COPY package*.json yarn.* ./
+
+RUN apk add --no-cache git
 
 COPY . .
 
+RUN chown -R node:node /home/node
+
+RUN npm install
+
+USER node
+
 EXPOSE 3333
 
-CMD ["node", "ace", "serve", "--watch"]
+CMD ["npm", "run", "dev"]
