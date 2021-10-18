@@ -1,4 +1,4 @@
-import { schema } from '@ioc:Adonis/Core/Validator'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 import { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
 
 export default class CreateApplicationValidator {
@@ -25,6 +25,13 @@ export default class CreateApplicationValidator {
 	 *    ```
 	 */
   public schema = schema.create({
+	  status: schema.enum(['InProgress', 'Submitted', 'Waitlisted', 
+	  'Admitted', 'Confirmed', 'Declined', 'CheckedIn', 'Expired'] as const, [rules.required()]),
+	  questionResponses: schema.object([rules.required()]).anyMembers(),
+	  group: schema.number([rules.required()]),
+	  formId: schema.number([rules.required()]),
+	  userId: schema.number([rules.required()]),
+	  teamId: schema.number([rules.required()])
   })
 
 	/**
