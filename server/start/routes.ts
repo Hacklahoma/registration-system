@@ -45,8 +45,6 @@ Route.group(() => {
     Route.post('edit', 'EventsController.editEvent');
     Route.post('delete', 'EventsController.deleteEvent');
   }).prefix('event');
-
-<<<<<<< HEAD
   //Application Routes
   Route.group(() => {
     Route.get('/', 'ApplicationsController.getAllApplications');
@@ -64,7 +62,7 @@ Route.group(() => {
     Route.post('edit', 'TeamsController.editTeam');
     Route.post('delete', 'TeamsController.deleteTeam');
   }).prefix('team');
-=======
+
   //Form Routes
   Route.group(() => {
     Route.get('/', 'FormsController.getAllForms');
@@ -73,5 +71,4 @@ Route.group(() => {
     Route.post('edit', 'FormsController.editForm');
     Route.post('delete', 'FormsController.deleteForm');
   }).prefix('form');
->>>>>>> f2f8186187f45b4e91f7afa792de1edb5c1966b8
 }).prefix('api');
