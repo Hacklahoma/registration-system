@@ -1,0 +1,95 @@
+@import "./constants";
+
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+
+$phone: 640px;
+$tablet: 768px;
+$desktop: 1024px;
+
+$btn-link-hover-color: pink;
+$bg-img: url("../Assets/login-background.png");
+
+.flex {
+  display: flex;
+  width: inherit;
+
+  &.row {
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+
+  &.col {
+    flex-direction: column;
+  }
+}
+
+.circle {
+  display: table;
+  background-color: $white;
+  border-radius: 50%;
+}
+
+.admin-login-page {
+  background-size: 100vw 100vh;
+  height: 100vh;
+  width: 100vh;
+  align-items: center;
+}
+
+.hacklahoma {
+  font-family: bebas-neue;
+  color: $white;
+  font-weight: bolder;
+  font-size: 4rem;
+  text-align: center;
+  margin-top: 0;
+}
+
+.card-title {
+  font-weight: bold;
+  font-size: 200%;
+  color: $white;
+  padding-top: 10px;
+  margin: 0 0 5px 0;
+  text-align: center;
+}
+
+.slack-text {
+  font-weight: bolder;
+  padding-top: 3vh;
+  margin: 0 0 10px 0;
+  text-align: center;
+  text-decoration: none;
+  margin-left: -95px;
+  width: 70%;
+  color: $white;
+  font-size: 140%;
+}
+
+.slack-text:hover {
+  color: $white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.admin-card {
+  width: 350px;
+  border-radius: 25px;
+  background-color: $light-blue;
+  margin: 0 auto;
+}
+
+.slack-logo {
+  width: 90px;
+  margin-left: 100px;
+  padding-top: 18px;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    // width: 350px;
+    width: calc(100vw - 24px);
+  }
+}
